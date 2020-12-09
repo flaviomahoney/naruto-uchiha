@@ -13,6 +13,7 @@ class ProductsController < ApplicationController
 
     def create
         @product = Product.new(product_params)
+        @product.user = current_user
         if @product.save
           flash[:success] = "Product successfully created"
           redirect_to @product
@@ -20,6 +21,20 @@ class ProductsController < ApplicationController
           flash[:error] = "Something went wrong"
           render 'new'
         end
+    end
+
+    def edit
+        @product = Product.find(params[:id])
+    end
+
+    def update
+        @product = Product.find(params[:id])
+        if @product.update(product_params)
+            redirect_to @product, notice: "Udated Succesfully" 
+        else 
+            render :edit
+        end
+
     end
 
     private
