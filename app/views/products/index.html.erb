@@ -10,5 +10,7 @@
         <br>
         <br>
     <% end %>
-    <%= link_to "Create Product", new_product_path, class: "btn btn-primary" %>
+    <% if policy(Product).create? %>
+        <%= link_to "Create Product", new_product_path, class: "btn btn-primary" %>
+    <% end %>
 </div>

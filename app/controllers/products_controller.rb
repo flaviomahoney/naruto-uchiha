@@ -1,17 +1,21 @@
 class ProductsController < ApplicationController
+
     def index
         @products = Product.all
     end
 
     def show
+        authorize @product
         @product = Product.find(params[:id])
     end
 
     def new
+        authorize @product
         @product = Product.new
     end
 
     def create
+        authorize @product
         @product = Product.new(product_params)
         @product.user = current_user
         if @product.save
@@ -24,10 +28,12 @@ class ProductsController < ApplicationController
     end
 
     def edit
+        authorize @product
         @product = Product.find(params[:id])
     end
 
     def update
+        authorize @product
         @product = Product.find(params[:id])
         if @product.update(product_params)
             redirect_to @product, notice: "Udated Succesfully" 
@@ -38,6 +44,7 @@ class ProductsController < ApplicationController
     end
 
     def destroy
+        authorize @product
         @product = Product.find(params[:id])
         @product.destroy
         redirect_to products_url, notice: 'Product was successfully destroyed.'
