@@ -7,4 +7,8 @@
     <br>
     <%= @product.price %>
     <br>
+    <%= link_to "Edit Product", edit_product_path, class: "btn btn-primary" %>
+    <%= link_to product_path(@product), class: "btn btn-red", method: :delete, data: { confirm: 'Are you sure?' } do %>
+          Remove <i class="fas fa-trash"></i>
+    <% end %>
 </div>
