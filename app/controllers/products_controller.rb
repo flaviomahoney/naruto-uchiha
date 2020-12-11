@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
 
     def index
-        @products = Product.all
+        @products = policy_scope(Product).order(created_at: :desc)
     end
 
     def show
@@ -10,13 +10,13 @@ class ProductsController < ApplicationController
     end
 
     def new
-        authorize @product
         @product = Product.new
+        authorize @product
     end
 
     def create
-        authorize @product
         @product = Product.new(product_params)
+        authorize @product
         @product.user = current_user
         if @product.save
           flash[:success] = "Product successfully created"
