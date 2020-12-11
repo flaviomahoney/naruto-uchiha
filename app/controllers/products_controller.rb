@@ -5,8 +5,10 @@ class ProductsController < ApplicationController
     end
 
     def show
-        authorize @product
         @product = Product.find(params[:id])
+        @product.user = current_user
+        @review = Review.new
+        authorize @product
     end
 
     def new

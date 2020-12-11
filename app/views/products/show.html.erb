@@ -11,4 +11,15 @@
     <%= link_to product_path(@product), class: "btn btn-red", method: :delete, data: { confirm: 'Are you sure?' } do %>
           Remove <i class="fas fa-trash"></i>
     <% end %>
+
+    <% @product.reviews.each do |review| %>
+        <%= @product.user.email %>
+        <%= review.rate %>
+        <br>
+    <% end %>
+
+    <%= simple_form_for([ @product, @review ]) do |f| %>
+        <%= f.input :rate, as: :text %>
+        <%= f.button :submit %>
+    <% end %>
 </div>
