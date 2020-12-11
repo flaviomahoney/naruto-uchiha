@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
 
     def show
         @product = Product.find(params[:id])
-        @product.user = current_user
+        @user = current_user
         @review = Review.new
         authorize @product
     end
