@@ -14,7 +14,7 @@ class RequestsController < ApplicationController
             redirect_to requests_path
         else
             flash[:alert] = "Something went wrong"
-        end        
+        end
     end
 
 end
