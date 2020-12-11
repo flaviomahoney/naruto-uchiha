@@ -7,9 +7,19 @@
     <br>
     <%= @product.price %>
     <br>
+    <br>
     <%= link_to "Edit Product", edit_product_path, class: "btn btn-primary" %>
     <%= link_to product_path(@product), class: "btn btn-red", method: :delete, data: { confirm: 'Are you sure?' } do %>
           Remove <i class="fas fa-trash"></i>
+    <% end %>
+    <br>
+    <br>
+    <% if policy(Request).create? %>
+        <%= simple_form_for [@product, Request.new] do |f| %>
+            <div class="btn btn-primary">
+              <%= f.button :submit , value: 'Buy Product', class: "btn btn-blue"%>
+            </div>
+        <% end %>
     <% end %>
     <br>
 
@@ -19,8 +29,11 @@
         <br>
     <% end %>
 
-    <%= simple_form_for([ @product, @review ], remote: true) do |f| %>
-        <%= f.input :rate, as: :text %>
-        <%= f.button :submit %>
+    <% if policy(Review).create? %>
+        <%= simple_form_for([ @product, @review ]) do |f| %>
+        <br>
+            <%= f.input :rate, as: :text %>
+            <%= f.button :submit %>
+        <% end %>
     <% end %>
 </div>

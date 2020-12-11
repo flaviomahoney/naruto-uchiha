@@ -1,5 +1,6 @@
 class Review < ApplicationRecord
   belongs_to :product
-
-  validates :rate, presence: true
+  belongs_to :user
+  
+  validates :user_id, uniqueness: :true
 end

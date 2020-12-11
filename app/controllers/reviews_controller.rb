@@ -2,13 +2,14 @@ class ReviewsController < ApplicationController
     def create
         @product = Product.find(params[:product_id])
         @review = Review.new(review_params)
-        authorize @review
-        @review.user = current_user
         @review.product = @product
+        @review.user = current_user
+        authorize @review
         if @review.save
           redirect_to product_path(@product)
         else
-          render 'products/show', notice: "You already rated this product"
+          redirect_to product_path(@product)
+          flash[:alert] = "You already have rated it"
         end
     end
     
