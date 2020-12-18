@@ -3,24 +3,30 @@
     <br>
     <%= @product.description %>
     <br>
+    <%= simple_form_for @product, remote: :true do |f| %>
+        <%= f.input :size, collection: ['PP', 'P', 'M', 'G', 'GG'],placeholder: "Enter with a size" %>
+        <%= f.button :submit , value: 'Choose Size', class: "btn btn-primary"%>
+    <% end %>
     <%= @product.size %>
     <br>
     <%= @product.price %>
     <br>
     <br>
-    <%= link_to "Edit Product", edit_product_path, class: "btn btn-primary" %>
-    <%= link_to product_path(@product), class: "btn btn-red", method: :delete, data: { confirm: 'Are you sure?' } do %>
-          Remove <i class="fas fa-trash"></i>
-    <% end %>
-    <br>
-    <br>
-    <% if policy(Request).create? %>
-        <%= simple_form_for [@product, Request.new] do |f| %>
-            <div class="btn btn-primary">
-              <%= f.button :submit , value: 'Buy Product', class: "btn btn-blue"%>
-            </div>
+    <%= simple_form_for [@product, @request] do |f| %>
+        <% if policy(Request).create? %>
+                <div class="btn btn-primary">
+                    <%= f.button :submit , value: 'Buy Product', class: "btn btn-blue"%>
+                </div>
         <% end %>
+        <br>
+        <br>
     <% end %>
+
+    <%= link_to "Edit Product", edit_product_path, class: "btn btn-primary" %>
+        <%= link_to product_path(@product), class: "btn btn-red", method: :delete, data: { confirm: 'Are you sure?' } do %>
+            Remove <i class="fas fa-trash"></i>
+    <% end %>
+    <br>
     <br>
 
     <% @product.reviews.each do |review| %>

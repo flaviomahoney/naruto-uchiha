@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
         @product = Product.find(params[:id])
         @user = current_user
         @review = Review.new
+        @request = Request.new
         authorize @product
     end
 

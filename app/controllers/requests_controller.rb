@@ -9,7 +9,7 @@ class RequestsController < ApplicationController
         @request = Request.new
         @request.product = @product
         @request.user = current_user
-        @request.status = "To be Approved"
+        @request.status = "Pending Approval"
         if @progress.save
             redirect_to requests_path
         else
