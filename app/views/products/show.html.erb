@@ -1,4 +1,9 @@
 <div class="container">
+    <% if @product.photo.attached? %>
+        <%= cl_image_tag @product.photo.key, height: 300, width: 400, crop: :fill %>
+    <% else %>
+        <p>Sem Foto</p>
+    <% end %>
     <%= @product.name %>
     <br>
     <%= @product.description %>

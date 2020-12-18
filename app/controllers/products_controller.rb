@@ -1,11 +1,10 @@
 class ProductsController < ApplicationController
-
+    before_action :set_product, only: [:show, :edit, :update, :destroy]
     def index
         @products = policy_scope(Product).order(created_at: :desc)
     end
 
     def show
-        @product = Product.find(params[:id])
         @user = current_user
         @review = Review.new
         @request = Request.new
@@ -32,12 +31,10 @@ class ProductsController < ApplicationController
 
     def edit
         authorize @product
-        @product = Product.find(params[:id])
     end
 
     def update
         authorize @product
-        @product = Product.find(params[:id])
         if @product.update(product_params)
             redirect_to @product, notice: "Udated Succesfully" 
         else 
@@ -48,15 +45,18 @@ class ProductsController < ApplicationController
 
     def destroy
         authorize @product
-        @product = Product.find(params[:id])
         @product.destroy
         redirect_to products_url, notice: 'Product was successfully destroyed.'
     end
 
     private
 
+    def set_product
+        @product = Product.find(params[:id])
+    end
+
     def product_params
-        params.require(:product).permit(:name, :description, :size, :price)
+        params.require(:product).permit(:name, :description, :size, :price, :photo)
     end
         
 end
