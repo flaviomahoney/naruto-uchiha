@@ -1,13 +1,26 @@
 <div class="container">
-    <% @products.each do |product| %>
-        <%= link_to product.name, product_path(product) %>
-        <br>
-        <%= product.description %>
-        <br>
-        <%= product.price %>
-        <br>
-        <br>
-    <% end %>
+    <div class="separator"></div>
+    <div class="cards">
+        <% @products.each do |product| %>
+            <div class="card-trip">
+                <% if product.photo.attached? %>
+                    <%#= link_to product_path(product) do %>
+                        <%= cl_image_tag product.photo.key, crop: :fill %>
+                    <%# end %>
+                <% else %>
+                    <p>Sem Foto</p>
+                <% end %>
+                <div class="card-trip-infos">
+                    <div>
+                        <h2><%= link_to product.name.capitalize, product_path(product), class: "card-link" %></h2>
+                        <p><%= product.description %></p>
+                    </div>
+                        <h2 class="card-trip-pricing"><%= product.price %></h2>
+                </div>
+            </div>
+        <% end %>
+    </div>
+    
     <% if policy(Product).create? %>
         <%= link_to "Create Product", new_product_path, class: "btn btn-primary" %>
     <% end %>

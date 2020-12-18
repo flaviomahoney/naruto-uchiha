@@ -1,38 +1,41 @@
 <div class="container">
-    <% if @product.photo.attached? %>
-        <%= cl_image_tag @product.photo.key, height: 300, width: 400, crop: :fill %>
-    <% else %>
-        <p>Sem Foto</p>
-    <% end %>
-    <%= @product.name %>
-    <br>
-    <%= @product.description %>
-    <br>
-    <%= simple_form_for @product, remote: :true do |f| %>
-        <%= f.input :size, collection: ['PP', 'P', 'M', 'G', 'GG'],placeholder: "Enter with a size" %>
-        <%= f.button :submit , value: 'Choose Size', class: "btn btn-primary"%>
-    <% end %>
-    <%= @product.size %>
-    <br>
-    <%= @product.price %>
-    <br>
-    <br>
-    <%= simple_form_for [@product, @request] do |f| %>
-        <% if policy(Request).create? %>
-                <div class="btn btn-primary">
-                    <%= f.button :submit , value: 'Buy Product', class: "btn btn-blue"%>
-                </div>
+    <div class="show-information">
+    
+        <% if @product.photo.attached? %>
+            <%= cl_image_tag @product.photo.key, height: 300, width: 400, crop: :fill %>
+        <% else %>
+            <p>Sem Foto</p>
         <% end %>
-        <br>
-        <br>
-    <% end %>
 
-    <%= link_to "Edit Product", edit_product_path, class: "btn btn-primary" %>
-        <%= link_to product_path(@product), class: "btn btn-red", method: :delete, data: { confirm: 'Are you sure?' } do %>
-            Remove <i class="fas fa-trash"></i>
-    <% end %>
-    <br>
-    <br>
+        <div class="information">
+            <p><%= @product.name %></p>
+            <p><%= @product.description %></p>
+            <p><%= @product.size %></p>
+            <p><%= @product.price %></p>
+
+            <%= simple_form_for @product, remote: :true do |f| %>
+                <%= f.input :size, collection: ['PP', 'P', 'M', 'G', 'GG'],placeholder: "Enter with a size" %>
+                <%= f.button :submit , value: 'Choose Size', class: "btn btn-primary"%>
+            <% end %>
+            <br>
+
+            <%= simple_form_for [@product, @request] do |f| %>
+                <% if policy(Request).create? %>
+                        <div class="btn btn-primary">
+                            <%= f.button :submit , value: 'Buy Product', class: "btn btn-blue"%>
+                        </div>
+                <% end %>
+            <% end %>
+            <br>
+
+            <%= link_to "Edit Product", edit_product_path, class: "btn btn-primary" %>
+                <%= link_to product_path(@product), class: "btn btn-red", method: :delete, data: { confirm: 'Are you sure?' } do %>
+                    Remove <i class="fas fa-trash"></i>
+            <% end %>
+            <br>
+            <br>
+        </div>
+    </div>
 
     <% @product.reviews.each do |review| %>
         <%= review.user.email %>
