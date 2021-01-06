@@ -5,13 +5,14 @@ class RequestsController < ApplicationController
     end
 
     def create
-        @product = Product.find(params[:product_id])
         @request = Request.new
+        authorize @request
+        @product = Product.find(params[:product_id])
         @request.product = @product
         @request.user = current_user
         @request.status = "Pending Approval"
-        if @progress.save
-            redirect_to requests_path
+        if @request.save
+            redirect_to products_path
         else
             flash[:alert] = "Something went wrong"
         end
