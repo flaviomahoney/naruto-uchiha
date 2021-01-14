@@ -18,4 +18,9 @@ class RequestsController < ApplicationController
         end
     end
 
+    def update
+        @request = Request.new
+        authorize @request
+    end
+
 end

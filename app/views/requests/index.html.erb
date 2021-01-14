@@ -1,7 +1,8 @@
 <div class="container">
     <% @requests.each do |request| %>
         <%= request.status %>
-        <br>
-        <br>
+        <%= simple_form_for (request) do |f| %>
+            <%= f.button :submit %>
+        <% end %>
     <% end %>
 </div>
