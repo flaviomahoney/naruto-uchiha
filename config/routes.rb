@@ -6,6 +6,6 @@ Rails.application.routes.draw do
     resources :reviews, only: [:create]
     resources :requests, only: [:create]
   end
-  resources :requests, only: [:index]
+  resources :requests, only: [:index, :update]
   
 end

@@ -19,8 +19,15 @@ class RequestsController < ApplicationController
     end
 
     def update
-        @request = Request.new
+        @request = Request.find(params[:id])
         authorize @request
+        @request.update(request_params)
+        redirect_to requests_path
     end
 
+    private
+
+    def request_params
+        params.require(:request).permit(:status, :size)
+    end
 end

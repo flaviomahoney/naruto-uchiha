@@ -1,8 +1,13 @@
 <div class="container">
     <% @requests.each do |request| %>
+        <br>
         <%= request.status %>
-        <%= simple_form_for (request) do |f| %>
-            <%= f.button :submit %>
+        <%= request.user.email %>
+        <%= link_to request_path(request, request: {status: "Aprovado"}), class: "btn btn-accept", method: :patch do %>
+              <i class="fas fa-check"></i>
+        <% end %>
+        <%= link_to request_path(request, request: {status: "Negado"}), class: "btn btn-reject", method: :patch do %>
+              <i class="fas fa-times"></i>
         <% end %>
     <% end %>
 </div>
