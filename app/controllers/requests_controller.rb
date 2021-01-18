@@ -5,7 +5,7 @@ class RequestsController < ApplicationController
     end
 
     def create
-        @request = Request.new
+        @request = Request.new(request_params)
         authorize @request
         @product = Product.find(params[:product_id])
         @request.product = @product
