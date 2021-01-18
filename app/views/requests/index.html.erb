@@ -3,10 +3,10 @@
         <br>
         <%= request.status %>
         <%= request.user.email %>
-        <%= link_to request_path(request, request: {status: "Aprovado"}), class: "btn btn-accept", method: :patch do %>
+        <%= link_to request_path(request, request: {status: "Approved"}), class: "btn btn-accept", method: :patch do %>
               <i class="fas fa-check"></i>
         <% end %>
-        <%= link_to request_path(request, request: {status: "Negado"}), class: "btn btn-reject", method: :patch do %>
+        <%= link_to request_path(request, request: {status: "Rejected"}), class: "btn btn-reject", method: :patch do %>
               <i class="fas fa-times"></i>
         <% end %>
     <% end %>
